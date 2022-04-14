@@ -1,0 +1,129 @@
+pipeline
+{
+    agent any
+
+    environment
+    {
+        name = 'Pallavi'
+    }
+
+    parameters
+    {
+        string(name: 'person', defaultValue: 'swapnil', description : 'who are you')
+        booleanParam(name: 'isMale', defaultValue: true, description : 'your gender')
+        choice(name: 'city', choices: ['pune', 'banglore', 'delhi'], description : 'select city')
+    }
+
+
+
+    
+    stages 
+    {
+       
+        stage ('run a command 1')
+        {
+           steps 
+           {
+                sh 'date'
+                sh 'pwd'
+           }
+        }
+    
+   
+        stage ('run a command 2') 
+        {
+            steps 
+            {
+                sh '''
+                    date
+                    cal 2022
+                    pwd
+                '''
+            }
+        }
+
+
+        stage ('envirnment variables')
+        {
+            steps 
+            {
+                sh 'echo "${BUILD_ID}"'
+            }
+        }
+
+
+        stage ('user env var') 
+        {
+            steps 
+            {
+                sh 'echo "${name}"'
+            }
+        }
+
+
+        stage ('user env var 2 ') 
+        {
+            environment
+            {
+                age = '20'
+            }
+            steps 
+            {
+                sh 'echo "${name}"'
+                sh 'echo "${age}"'
+            }
+        }
+
+        
+
+        stage ('user paramenter')
+        {
+            steps 
+            {
+                sh 'echo "${person}"'
+                sh 'echo "${isMale}"'
+                sh 'echo "${city}"'
+
+            }
+        }
+
+
+        stage ('manual intervantion.. ?')
+        {
+            input 
+            {
+                message "should we continue : "
+                ok "yes, we should"
+            }
+
+            steps 
+            {
+                sh 'echo "deploy to production..."'
+            }
+        }
+
+
+
+
+
+    }
+
+    post 
+    {
+        always
+        {
+            sh 'echo "always execute in post section"'
+        }
+        failure
+        {
+            sh 'echo "runs on failure"'
+        }
+        success
+        {
+            sh 'echo "runs on success"'
+        }
+
+
+    }
+
+}
