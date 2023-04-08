@@ -1,2 +1,5 @@
 # terraRepo
-terraform test repo
+This repository contains Terraform TF Templates.
+It can be used as a basic reference for learning the Terraform.
+
+![image](https://user-images.githubusercontent.com/92639898/230716381-2fe7d860-7cd4-47d4-bd7b-2614f9510370.png)
